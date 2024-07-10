@@ -47,7 +47,9 @@ class AirQuality:
                                     "Value": values,
                                     "location": location,
                                     "parameter": parameter})
-        # Converting datatime
+        df['Date'] =  df['Date'].astype(str)
+        
+        # Converting datetime
         df['Data_Converted'] = df['Date'].str.slice(start = 0, stop = 10) + " " + df['Date'].str.slice(start = 11)
         df['Data_Converted'] = pd.to_datetime(df['Data_Converted'], format='mixed') 
         self.raw_data = df
