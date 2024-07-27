@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 from prophet import Prophet
+from datetime import date
 
 class AirQuality:
 
@@ -25,8 +26,14 @@ class AirQuality:
 
         # Defining url for location and requesting data
         converted = []
+        
+        # Defining dates
+        today = str(date.today())
+        year = today[:4]
+        month = today[5:7]
+        day = today[-2:]
         try:
-            url = "https://api.openaq.org/v2/measurements?date_from=2024-05-30T00%3A00%3A00Z&date_to=2024-06-06T20%3A45%3A00Z&limit={}&page=1&offset=0&sort=desc&parameter_id=2&radius=1000&location_id={}&order_by=datetime".format(data_points, self.location)
+            url = "https://api.openaq.org/v2/measurements?date_from=2024-05-30T00%3A00%3A00Z&date_to={}-{}-{}T20%3A45%3A00Z&limit={}&page=1&offset=0&sort=desc&parameter_id=2&radius=1000&location_id={}&order_by=datetime".format(year, month, day, data_points, self.location)
             headers = {"accept": "application/json"}
             response = requests.get(url, headers=headers)
             converted = response.json()['results']
