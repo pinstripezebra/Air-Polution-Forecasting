@@ -34,7 +34,7 @@ class AirQuality:
             print("Invalid query")
 
         # Defining lists for data parsing
-        values, date, location, parameter = [], [], [], []
+        values, date, location, parameter, latitude, longitude = [], [], [], [], [], []
         
         # Iterating through dict and appending values
         for entry in converted:
@@ -42,11 +42,15 @@ class AirQuality:
             date.append(entry['date']['utc'])
             location.append(entry['locationId'])
             parameter.append(entry['parameter'])
+            latitude.append(entry['coordinates']['latitude'])
+            longitude.append(entry['coordinates']['longitude'])
 
         df = pd.DataFrame.from_dict({"Date": date,
-                                    "Value": values,
-                                    "location": location,
-                                    "parameter": parameter})
+                                "Value": values,
+                                "location": location,
+                                "parameter": parameter,
+                                'longitude': longitude,
+                                "latitude": latitude})
         df['Date'] =  df['Date'].astype(str)
         
         # Converting datetime
