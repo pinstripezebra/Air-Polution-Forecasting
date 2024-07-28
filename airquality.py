@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 from prophet import Prophet
-from datetime import date
+import datetime
 
 class AirQuality:
 
@@ -28,7 +28,7 @@ class AirQuality:
         converted = []
         
         # Defining dates
-        today = str(date.today())
+        today = str(datetime.date.today())
         year = today[:4]
         month = today[5:7]
         day = today[-2:]
